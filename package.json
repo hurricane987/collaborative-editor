@@ -1,0 +1,37 @@
+{
+  "name": "flappy-bird-clone",
+  "version": "1.0.0",
+  "description": "Flappy bird clone game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hurricane987/flappy-bird-clone.git"
+  },
+  "author": "Alex Erickson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hurricane987/flappy-bird-clone/issues"
+  },
+  "homepage": "https://github.com/hurricane987/flappy-bird-clone",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^3.2.2",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.1",
+    "node-bourbon": "^4.2.8",
+    "node-neat": "^1.7.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
