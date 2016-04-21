@@ -1,7 +1,7 @@
 {
   "name": "Template",
   "description": "Template for creating sites",
-  "main": "index.js",
+  "main": "app.js",
   "authors": [
     "Alex Erickson"
   ],
@@ -12,7 +12,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "site/bower_components"
   ],
   "dependencies": {
     "angular": "^1.5.5",
