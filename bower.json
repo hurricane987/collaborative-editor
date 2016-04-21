@@ -1,0 +1,22 @@
+{
+  "name": "Template",
+  "description": "Template for creating sites",
+  "main": "index.js",
+  "authors": [
+    "Alex Erickson"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/hurricane987/Template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-animate": "^1.5.5"
+  }
+}
