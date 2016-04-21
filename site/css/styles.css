@@ -358,12 +358,3 @@ html {
 
 *, *::after, *::before {
   box-sizing: inherit; }
-
-.hello-world {
-  color: blue;
-  background: red; }
-  .hello-world:hover {
-    background: white; }
-
-body {
-  background: orange; }
