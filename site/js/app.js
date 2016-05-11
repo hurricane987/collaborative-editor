@@ -1,4 +1,4 @@
 $(function(){
 	console.log('Hello world');
-	console.log('Sass is a pain');
+	console.log('Sass is dope!');
 });

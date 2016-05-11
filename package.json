@@ -1,21 +1,21 @@
 {
-  "name": "flappy-bird-clone",
+  "name": "collaboratr",
   "version": "1.0.0",
-  "description": "Flappy bird clone game",
+  "description": "Collaborative, remote text editor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hurricane987/flappy-bird-clone.git"
+    "url": "https://github.com/hurricane987/collaboratr.git"
   },
   "author": "Alex Erickson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hurricane987/flappy-bird-clone/issues"
+    "url": "https://github.com/hurricane987/collaboratr/issues"
   },
-  "homepage": "https://github.com/hurricane987/flappy-bird-clone",
+  "homepage": "https://github.com/hurricane987/collaboratr",
   "devDependencies": {
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",

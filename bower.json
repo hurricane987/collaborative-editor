@@ -6,7 +6,7 @@
     "Alex Erickson"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/hurricane987/Template",
+  "homepage": "https://github.com/hurricane987/collaboratr",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,8 +16,13 @@
     "site/bower_components"
   ],
   "dependencies": {
+    "jquery": "^2.3.3",
     "angular": "^1.5.5",
     "angular-route": "^1.5.5",
-    "angular-animate": "^1.5.5"
+    "angular-animate": "^1.5.5",
+    "angular-mocks": "^1.5.5"
+  },
+  "devDependencies": {
+    "jquery": "^2.2.3"
   }
 }
