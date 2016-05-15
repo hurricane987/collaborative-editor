@@ -312,13 +312,13 @@ div.CodeMirror-dragcursors {
 }
 
 .CodeMirror-selected { background: #FFE1F0; }
-.CodeMirror-focused .CodeMirror-selected { background: #FFE1F0; }
+.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
 .CodeMirror-crosshair { cursor: crosshair; }
-.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #FFE1F0; }
-.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #FFE1F0; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
 
 .cm-searching {
-  background: #FFE1F0;
+  background: #ffa;
   background: rgba(255, 255, 0, .4);
 }
 
@@ -339,4 +339,4 @@ div.CodeMirror-dragcursors {
 .cm-tab-wrap-hack:after { content: ''; }
 
 /* Help users use markselection to safely style text background */
-span.CodeMirror-selectedtext { background: #FFE1F0; }
+span.CodeMirror-selectedtext { background: none; }

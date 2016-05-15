@@ -364,8 +364,7 @@ html {
   background-color: #fafafa; }
 
 html {
-  height: 100%;
-  font-family: 'Inconsolata', Helvetica; }
+  height: 100%; }
 
 body {
   height: 100%; }
@@ -377,12 +376,11 @@ body {
 
 .main-header {
   height: 6em;
-  padding: 0 5%; }
+  padding: 0 15%; }
   .main-header .headline {
     display: inline-block;
     width: 30%;
-    float: left;
-    font-weight: 700; }
+    float: left; }
   .main-header .new-collab,
   .main-header .switch,
   .main-header .select {
@@ -395,7 +393,7 @@ body {
     display: block;
     float: right; }
   .main-header .select {
-    margin-top: 1.6em; }
+    margin-top: 1.55em; }
   .main-header .select:focus,
   .main-header .new-collab:focus,
   .main-header .switch:focus {
