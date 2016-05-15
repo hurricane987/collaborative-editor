@@ -4,7 +4,8 @@
   "description": "Collaborative, remote text editor",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/hurricane987/collaboratr",
   "devDependencies": {
     "browserify": "^13.0.0",
+    "express": "^4.10.2",
     "gulp": "^3.9.1",
     "gulp-bower": "0.0.13",
     "gulp-clean-css": "^2.0.4",
@@ -30,8 +32,11 @@
     "gulp-sass": "^2.2.0",
     "gulp-uglify": "^1.5.3",
     "jshint": "^2.9.1",
+    "karma-html2js-preprocessor": "^1.0.0",
+    "karma-jasmine-html-reporter": "^0.2.0",
     "node-bourbon": "^4.2.8",
     "node-neat": "^1.7.2",
+    "socket.io": "^1.4.6",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }

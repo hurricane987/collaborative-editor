@@ -1,0 +1,65 @@
+* {
+	box-sizing: border-box;
+	background-color: $near-white;
+}
+
+html {
+	height: 100%;
+	font-family: 'Inconsolata', Helvetica;
+}
+
+body {
+	height: 100%;
+}
+
+.container {
+	padding: 1em;
+	position: relative;
+	height: 90%;
+}
+
+.main-header {
+	height: 6em;
+	padding: 0 5%;
+	.headline {
+		display: inline-block;
+		width: 30%;
+		float: left;
+		font-weight: 700;
+	}
+	.new-collab,
+	.switch,
+	.select {
+		margin-top: 1.5em;
+		margin-right: 0.5em;
+		font-size: 1em;
+		border-radius: 4px;
+		background-color: $charcoal;
+		color: $near-white;
+		display: block;
+		float: right;
+	}
+
+	.select {
+		margin-top: 1.6em;
+	}
+
+	.select:focus,
+	.new-collab:focus,
+	.switch:focus {
+		outline-style: double;
+		outline-color: $dope-pink;
+	}
+}
+
+.other-info {
+	border: solid 1px $charcoal;
+	width: 28%;
+	height: 80%;
+	float: right;
+	margin-right: 2em;
+	.messages {
+		border: solid 1px $charcoal;
+	}	
+}
+

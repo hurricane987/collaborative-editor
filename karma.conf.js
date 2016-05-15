@@ -15,8 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'site/js/app.js',
-      'site/js/appSpec.js'
+      'site/bower_components/jquery/dist/jqery.js',
+      'site/bower_components/angular/angular.js',
+      'site/bower_components/angular-animate/angular-animate.js',
+      'site/bower_components/angular-mocks/angular-mocks.js',
+      'site/bower_components/angular-route/angular-route.js',
+      'site/js/*.js',
+      'site/js/*Spec.js'
     ],
 
 
@@ -28,6 +33,12 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        '**/*.html': ['html2js']
+    },
+
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'site/'
     },
 
 
