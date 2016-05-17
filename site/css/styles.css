@@ -403,11 +403,11 @@ body {
     outline-style: double;
     outline-color: #FFE1F0; }
 
-.editor-div {
+ui-codemirror {
   height: 90%;
   width: 68%;
   display: inline-block; }
-  .editor-div .cms-default {
+  ui-codemirror .cms-default {
     width: 100%; }
 
 .other-info {
