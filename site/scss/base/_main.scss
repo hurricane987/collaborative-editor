@@ -1,6 +1,5 @@
 * {
 	box-sizing: border-box;
-	background-color: $near-white;
 }
 
 html {
@@ -9,6 +8,10 @@ html {
 
 body {
 	height: 100%;
+	font-family: 'inconsolata', Helvetica;
+	background-color: $near-white;
+	padding: 0;
+	margin: 0;
 }
 
 .container {
@@ -39,7 +42,7 @@ body {
 	}
 
 	.select {
-		margin-top: 1.55em;
+		margin-top: 1.7em;
 	}
 
 	.select:focus,
@@ -47,6 +50,15 @@ body {
 	.switch:focus {
 		outline-style: double;
 		outline-color: $dope-pink;
+	}
+}
+
+.editor-div {
+	height: 90%;
+	width: 68%;
+	display: inline-block;
+	.cms-default {
+		width: 100%;
 	}
 }
 

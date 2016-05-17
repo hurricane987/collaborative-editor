@@ -23,6 +23,8 @@
     "angular-mocks": "^1.5.5"
   },
   "devDependencies": {
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "firebase": "^2.4.2",
+    "angularfire": "^1.2.0"
   }
 }

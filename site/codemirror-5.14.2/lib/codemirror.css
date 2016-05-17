@@ -3,10 +3,10 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
-  height: 80%;
-  width: 68%;
   float: left;
   color: #232323;
+  width: 100%;
+  height: 90%;
   font-size: 1.2em;
   border: solid 1px #232323;
 }
@@ -312,10 +312,11 @@ div.CodeMirror-dragcursors {
 }
 
 .CodeMirror-selected { background: #FFE1F0; }
-.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.CodeMirror-focused .CodeMirror-selected { background: #FFE1F0; }
 .CodeMirror-crosshair { cursor: crosshair; }
-.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
-.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #FFE1F0; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #FFE1F0; }
+
 
 .cm-searching {
   background: #ffa;
@@ -339,4 +340,4 @@ div.CodeMirror-dragcursors {
 .cm-tab-wrap-hack:after { content: ''; }
 
 /* Help users use markselection to safely style text background */
-span.CodeMirror-selectedtext { background: none; }
+span.CodeMirror-selectedtext { background: #FFE1F0; }

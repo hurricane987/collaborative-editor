@@ -360,14 +360,17 @@ html {
   box-sizing: inherit; }
 
 * {
-  box-sizing: border-box;
-  background-color: #fafafa; }
+  box-sizing: border-box; }
 
 html {
   height: 100%; }
 
 body {
-  height: 100%; }
+  height: 100%;
+  font-family: 'inconsolata', Helvetica;
+  background-color: #fafafa;
+  padding: 0;
+  margin: 0; }
 
 .container {
   padding: 1em;
@@ -393,12 +396,19 @@ body {
     display: block;
     float: right; }
   .main-header .select {
-    margin-top: 1.55em; }
+    margin-top: 1.7em; }
   .main-header .select:focus,
   .main-header .new-collab:focus,
   .main-header .switch:focus {
     outline-style: double;
     outline-color: #FFE1F0; }
+
+.editor-div {
+  height: 90%;
+  width: 68%;
+  display: inline-block; }
+  .editor-div .cms-default {
+    width: 100%; }
 
 .other-info {
   border: solid 1px #232323;
