@@ -2,11 +2,10 @@ angular.module('Collaboratr', ['firebase', 'ui.codemirror'])
 .controller('CollabCtrl', ['$rootScope', '$scope', '$firebaseObject', function($rootScope, $scope, $firebaseObject){
 	var ref = new Firebase("https://collaboratr.firebaseio.com/data");
 
-	$scope.data = $firebaseObject(ref);
+	obj = $firebaseObject(ref);
 
-	$scope.data.$bindTo($scope, "data").then(function(){
-		ref.set({users: ['alex', 'rico', 'jean-jaques'],
-				 textarea: ''});
+	obj.$bindTo($scope, "data").then(function(){
+		ref.set({textarea: '//your code goes here!'});
 	});
 	
 	$scope.modes = {'HTML': 'htmlmixed', 'CSS': 'css', 'JavaScript': 'javascript', 'PHP': 'php', 'Python': 'python', 'Ruby': 'ruby'};
@@ -16,10 +15,4 @@ angular.module('Collaboratr', ['firebase', 'ui.codemirror'])
         lineNumbers: true,
         mode: $rootScope.currentMode
     };
-	
-	$scope.$watch('currentMode', function(value){
-		$rootScope.currentMode = value;
-		$scope.editorOptions.mode = $rootScope.currentMode;
-	}); 
-
 }]);
