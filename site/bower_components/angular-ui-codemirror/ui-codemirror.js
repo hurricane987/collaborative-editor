@@ -125,11 +125,32 @@ function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
 
     // Keep the ngModel in sync with changes from CodeMirror
     codemirror.on('change', function(instance) {
+      var modeDebug = false;
       var newValue = instance.getValue();
-      if (newValue !== ngModel.$viewValue) {
+
+      // patch for enter key
+      if (newValue.endsWith('\n')) {
+        if (modeDebug) console.log('patch: last char is eol');
+        var cursor = codemirror.getCursor();
+        cursor.line += 1;
+        cursor.ch = 0;
+        codemirror.setCursor(cursor); // /!\ need to be improve with smart indent !
+      }
+      // patch for space key
+      else if (newValue.endsWith(' ')) {
+        if (modeDebug) console.log('patch: last char is a space');
+        var cursor = codemirror.getCursor();
+        cursor.ch += 1;
+        // ngModel.$setViewValue(newValue); // DO NOT SET new value (trim it !)
+        codemirror.setCursor(cursor);
+      }       
+      else if (newValue !== ngModel.$viewValue) {
+        // BUG: cursor returns at position  0 using keys 'space' or 'enter'
+        // => see previous patches
         scope.$evalAsync(function() {
-          ngModel.$setViewValue(newValue);
-        });
+            if (modeDebug) console.log('sync ng model');
+            ngModel.$setViewValue(newValue);
+        }); 
       }
     });
   }

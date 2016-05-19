@@ -73,3 +73,14 @@ ui-codemirror {
 	}	
 }
 
+.ng-dialog {
+	position: absolute;
+	background-color: $dope-pink;
+	outline-style: double;
+	outline-color: $charcoal;
+	padding: 1em;
+	top: 20%;
+	left: 35%;
+	z-index: 9999;
+}
+
