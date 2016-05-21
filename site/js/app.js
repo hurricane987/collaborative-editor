@@ -35,21 +35,23 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         });
     };
 
+      $scope.currentUser = {};
+
     $scope.createUser = function(name) {
-    	var user = {name: name};
-        socket.emit('join', user);
+    	$scope.currentUser = {name: name};
+        socket.emit('join', $scope.currentUser);
     };
 
-    socket.on('update-users', function(usersList) {   
-        $scope.$apply($scope.data.users = usersList);
+    socket.on('refresh-users', function(usersList) {
+        $scope.data.users = usersList;
+        angular.forEach($scope.data.users, function(user){
+            if (user.name === $scope.currentUser.name) {
+                $scope.editorOptions.readOnly = user.hasWritePermission ? false : 'nocursor';
+            }
+        });
+        $scope.$apply();
         $scope.$digest();
         console.log($scope.data.users);
-    });
-
-    socket.on('update-permissions', function() {
-        angular.forEach($scope.data.users, function(){
-        });
-        $scope.$digest();
     });
 
 	//MODES FOR SYNTAX HIGHLIGHTING
@@ -63,8 +65,11 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 
     //SWITCHING CONTROL OF EDITOR
 
-    $scope.changeEditor = function(name){
-        socket.emit('change-editor', name);
+    $scope.changeEditor = function(name) {
+        angular.forEach($scope.data.users, function(user){
+            user.hasWritePermission = (user.name === name);
+        });
+        socket.emit('update-users', $scope.data.users);
     };
     
 	//UPDATE TEXTAREA IN REALTIME

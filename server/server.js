@@ -17,28 +17,14 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('join', function(newUser) {
-		users[socket.id] = newUser;
-		if (users.length === 0) {
-			newUser.hasWritePermission = true;
-		} else {
-			newUser.hasWritePermission = false;
-		};
-		if (newUser.hasWritePermission) {
-			io.sockets.emit('update-permissions');
-		};
+		newUser.hasWritePermission = (users.length === 0);
 		users.push(newUser);
-		io.sockets.emit('update-users', users);
+		io.sockets.emit('refresh-users', users);
 	});
-
-	socket.on('change-editor', function(name) {
-		if(users[socket.id] === name) {
-			users[socket.id].hasWritePermission = true;
-		} else {
-			users[socket.id].hasWritePermission = false;
-		};
-		if (users[socket.id].hasWritePermission) {
-			io.sockets.emit('update-permissions');
-		};
+	
+	socket.on('update-users', function (updatedUsers) {
+		users = updatedUsers;
+		io.sockets.emit('refresh-users', users);
 	});
 });
 
