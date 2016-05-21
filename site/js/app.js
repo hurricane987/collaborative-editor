@@ -46,6 +46,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         $scope.data.users = usersList;
         angular.forEach($scope.data.users, function(user){
             if (user.name === $scope.currentUser.name) {
+                $scope.currentUser = user;
                 $scope.editorOptions.readOnly = user.hasWritePermission ? false : 'nocursor';
             }
         });
@@ -66,6 +67,11 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
     //SWITCHING CONTROL OF EDITOR
 
     $scope.changeEditor = function(name) {
+        if (!$scope.currentUser.hasWritePermission) {
+            alert('You can\'t change the editor without permissions!');
+            return;
+        }
+        
         angular.forEach($scope.data.users, function(user){
             user.hasWritePermission = (user.name === name);
         });
