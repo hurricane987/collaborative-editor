@@ -17,7 +17,6 @@
 			<header class="main-header">
 				<h1 class="headline">COLLABORATR</h1>
 				<button class="new-collab">New</button>
-				<button class="switch">Switch User</button>
 				<select class="select" id="language-select" ng-model="currentMode" ng-options="mode for (mode, value) in modes"></select>
 			</header>
 			<ui-codemirror ng-model="data.textarea" ui-codemirror-opts="editorOptions">
@@ -25,7 +24,7 @@
 	    	<div class="other-info">
 	    		<h3>Collaboratrs:</h3>
 	    		<ul class=users>
-	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}</li>
+	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}<a ng-href="" ng-click="changeEditor(user.name)">Make editor</a></li>
 	    		</ul>
 	    		<h3>Project URL</h3>
 	    		<p class="url">unique.url/forthiscollab</p>

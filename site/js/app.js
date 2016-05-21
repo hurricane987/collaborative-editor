@@ -11,7 +11,22 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 }])
 .controller('CollabCtrl', ['$rootScope', '$scope', 'ngDialog', function($rootScope, $scope, ngDialog){	
 
-	//POMPT USER FOR USERNAME
+    //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
+
+    $scope.data = {};
+    var socket = io();
+    $scope.data.users = [];
+
+    //CONFIGURE EDITOR
+
+    $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        mode: $rootScope.currentMode,
+        readOnly: 'nocursor'
+    };
+
+	//POMPT USER FOR USERNAME, HANDLE USER CREATION
 
 	$scope.dialog = function () {
         ngDialog.openConfirm({ 	
@@ -20,21 +35,22 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         });
     };
 
-    $scope.addUser = function(username) {
-    	var ID = Math.round(Math.random() * 10000);
-    	if ($scope.data.users.length === 0) {
-    		$scope.data.users.push({name: username, ID: ID, hasWritePermission: true});
-    	} else {
-    		$scope.data.users.push({name: username, ID: ID, hasWritePermission: false});
-    	}
-    	console.log($scope.data.users);
-    }
+    $scope.createUser = function(name) {
+    	var user = {name: name};
+        socket.emit('join', user);
+    };
 
-  	//INITIALIZE SCOPE.DATA, HANDLE USER STUFF
+    socket.on('update-users', function(usersList) {   
+        $scope.$apply($scope.data.users = usersList);
+        $scope.$digest();
+        console.log($scope.data.users);
+    });
 
-	$scope.data = {};
-	var socket = io();
-	$scope.data.users = [];
+    socket.on('update-permissions', function() {
+        angular.forEach($scope.data.users, function(){
+        });
+        $scope.$digest();
+    });
 
 	//MODES FOR SYNTAX HIGHLIGHTING
 
@@ -45,31 +61,23 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 		$scope.editorOptions.mode = $scope.currentMode;
 	});
 
-	//INTERACT WITH SOCKET.IO
+    //SWITCHING CONTROL OF EDITOR
+
+    $scope.changeEditor = function(name){
+        socket.emit('change-editor', name);
+    };
+    
+	//UPDATE TEXTAREA IN REALTIME
 
 	$scope.$watch('data.textarea', function(update){
-		socket.emit('CodeMirror', update);
+        if($scope.editorOptions.readOnly === false) {
+            socket.emit('CodeMirror', update);
+        }
 	});
 
 	socket.on('CodeMirror', function(update){
 		$scope.$apply(function(){$scope.data.textarea = update});
 	});
-
-	$scope.$watch('data.users', function(newUser){
-		socket.emit('Users', newUser);
-	});
-
-	socket.on('Users', function(newUser){
-		$scope.$apply(function(){$scope.data.users.push(newUser)});
-	});
-
-	//CONFIGURE EDITOR
-
-	$scope.editorOptions = {
-        lineWrapping : true,
-        lineNumbers: true,
-        mode: $rootScope.currentMode
-    };
 }]);
 
 
