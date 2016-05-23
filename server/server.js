@@ -1,30 +1,40 @@
 var express = require('express');
+var shortid = require('shortid');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var users = [];
+var users = {};
 const PORT = 8080;
 
-app.use(express.static('site'));
-
+app.use('/:id', express.static('site'));
 app.get('/', function(req, res){
-	res.sendFile('/Users/alex/Projects/collaboratr/site/index.html');
-});
+	res.statusCode = 302;
+  	res.setHeader('Location', '/' + shortid.generate());
+  	res.end();
+})
 
 io.on('connection', function(socket){
-	socket.on('CodeMirror', function(update){
-		socket.broadcast.emit('CodeMirror', update);
+
+	socket.on('CodeMirror', function(data){
+		socket.broadcast.emit('CodeMirror#' + data.collabId, data.value);
 	});
 
-	socket.on('join', function(newUser) {
-		newUser.hasWritePermission = (users.length === 0);
-		users.push(newUser);
-		io.sockets.emit('refresh-users', users);
+	socket.on('join', function(data) {
+		if(!users.hasOwnProperty(data.collabId)){
+			users[data.collabId] = [];
+		};
+		var currentUsers = users[data.collabId];
+		data.value.hasWritePermission = (currentUsers.length === 0);
+		currentUsers.push(data.value);
+		io.sockets.emit('refresh-users#' + data.collabId, currentUsers);
 	});
 	
-	socket.on('update-users', function (updatedUsers) {
-		users = updatedUsers;
-		io.sockets.emit('refresh-users', users);
+	socket.on('update-users', function (data) {
+		if(!users.hasOwnProperty(data.collabId)){
+			console.log('Something is very wrong...');
+		}
+		users[data.collabId] = data.value;
+		io.sockets.emit('refresh-users#' + data.collabId, data.value);
 	});
 });
 

@@ -24,7 +24,7 @@
 	    	<div class="other-info">
 	    		<h3>Collaboratrs:</h3>
 	    		<ul class=users>
-	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}<a ng-href="" ng-click="changeEditor(user.name)">Make editor</a></li>
+	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}<button class="new-collab" ng-click="changeEditor(user.name)">Make editor</button></li>
 	    		</ul>
 	    		<h3>Project URL</h3>
 	    		<p class="url">unique.url/forthiscollab</p>
@@ -34,7 +34,7 @@
 	    		</div>
 	    	</div>
 		</div>
-		<script src="socket.io/socket.io.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.js"></script>

@@ -16,6 +16,7 @@ body {
 
 ul {
 	list-style: none;
+	padding-left: 0;
 }
 
 .container {
@@ -67,7 +68,6 @@ ui-codemirror {
 }
 
 .other-info {
-	border: solid 1px $charcoal;
 	width: 28%;
 	height: 80%;
 	float: right;
