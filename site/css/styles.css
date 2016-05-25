@@ -388,7 +388,6 @@ ul {
     display: inline-block;
     width: 30%;
     float: left; }
-  .main-header .new-collab,
   .main-header .switch,
   .main-header .select {
     margin-top: 1.5em;
@@ -407,6 +406,17 @@ ul {
     outline-style: double;
     outline-color: #FFE1F0; }
 
+.make-editor,
+.is-editor {
+  font-size: 0.8em;
+  margin-left: 1.3em; }
+
+.make-editor {
+  text-decoration: underline; }
+
+.make-editor:hover {
+  cursor: pointer; }
+
 ui-codemirror {
   height: 90%;
   width: 68%;
@@ -419,8 +429,21 @@ ui-codemirror {
   height: 80%;
   float: right;
   margin-right: 2em; }
+  .other-info .message-form {
+    display: inline-block; }
+  .other-info .messages-headline {
+    display: inline-block;
+    margin-right: 10px; }
+  .other-info .new-message {
+    display: inline-block;
+    margin-right: 10px; }
+  .other-info .message-button {
+    background-color: #232323;
+    color: #fafafa; }
   .other-info .messages {
-    border: solid 1px #232323; }
+    height: 15em;
+    overflow: auto;
+    border-top: solid 1px #232323; }
 
 .ng-dialog {
   position: absolute;

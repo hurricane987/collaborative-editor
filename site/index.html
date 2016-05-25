@@ -16,7 +16,6 @@
 		<div class="container" ng-controller="CollabCtrl" ng-init="dialog()">
 			<header class="main-header">
 				<h1 class="headline">COLLABORATR</h1>
-				<button class="new-collab">New</button>
 				<select class="select" id="language-select" ng-model="currentMode" ng-options="mode for (mode, value) in modes"></select>
 			</header>
 			<ui-codemirror ng-model="data.textarea" ui-codemirror-opts="editorOptions">
@@ -24,13 +23,20 @@
 	    	<div class="other-info">
 	    		<h3>Collaboratrs:</h3>
 	    		<ul class=users>
-	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}<button class="new-collab" ng-click="changeEditor(user.name)">Make editor</button></li>
+	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}
+	    				<a class="make-editor" ng-show="user.name !== currentUser.name && currentUser.hasWritePermission" ng-click="changeEditor(user.name)">Make editor</a>
+	    				<span class="is-editor" ng-show="user.hasWritePermission">is editing</span>
+	    			</li>
 	    		</ul>
-	    		<h3>Project URL</h3>
-	    		<p class="url">unique.url/forthiscollab</p>
-	    		<h3>Messages:</h3>
+	    		<h3>Collab ID:</h3>
+	    		<p class="url" ng-model="collabId">{{collabId}}</p>
+	    		<form class="message-form" ng-submit="sendMessage(newMessage)">
+	    			<input id="new-message" ng-model="newMessage" placeholder="send a message...." class="new-message"></input>
+	    			<input type="submit" class="message-button"></input>
+	    		</form>
+	    		<h3 class="messages-headline">Messages:</h3>
 	    		<div class="messages" id="messages">
-	    			<p ng-repeat="message in message">{{messages.username}}: {{messages.message}}</p>
+	    			<p ng-repeat="message in messages track by $index">{{message}}</p>
 	    		</div>
 	    	</div>
 		</div>

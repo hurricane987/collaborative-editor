@@ -33,7 +33,7 @@ ul {
 		width: 30%;
 		float: left;
 	}
-	.new-collab,
+
 	.switch,
 	.select {
 		margin-top: 1.5em;
@@ -58,6 +58,20 @@ ul {
 	}
 }
 
+.make-editor,
+.is-editor {
+	font-size: 0.8em;
+	margin-left: 1.3em;
+}
+
+.make-editor{
+	text-decoration: underline;
+}
+
+.make-editor:hover{
+	cursor: pointer;
+}
+
 ui-codemirror {
 	height: 90%;
 	width: 68%;
@@ -72,8 +86,25 @@ ui-codemirror {
 	height: 80%;
 	float: right;
 	margin-right: 2em;
+	.message-form{
+		display: inline-block;
+	}
+	.messages-headline {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	.new-message {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	.message-button{
+		background-color: $charcoal;
+		color: $near-white;
+	}
 	.messages {
-		border: solid 1px $charcoal;
+		height: 15em;
+		overflow: auto;
+		border-top: solid 1px $charcoal;
 	}	
 }
 

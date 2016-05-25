@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var users = {};
+var messages = [];
 const PORT = 8080;
 
 app.use('/:id', express.static('site'));
@@ -27,6 +28,8 @@ io.on('connection', function(socket){
 		data.value.hasWritePermission = (currentUsers.length === 0);
 		currentUsers.push(data.value);
 		io.sockets.emit('refresh-users#' + data.collabId, currentUsers);
+		messages.unshift(data.value.name + ' is now chillin');
+		io.sockets.emit('refresh-messages#' + data.collabId, messages);
 	});
 	
 	socket.on('update-users', function (data) {
@@ -36,6 +39,18 @@ io.on('connection', function(socket){
 		users[data.collabId] = data.value;
 		io.sockets.emit('refresh-users#' + data.collabId, data.value);
 	});
+
+	socket.on('new-message', function(data) {
+		messages.unshift(data.name + ": " + data.value);
+		io.sockets.emit('new-message#' + data.collabId, {name: data.name, value: data.value});
+		console.log(messages);
+	});
+
+	socket.on('disconnect', function(data) {
+		users[data.collabId] + ' has left';
+		io.sockets.emit('refresh-messages#' + data.collabId, messages);
+		console.log(users[data.collabId] + ' has left');
+	})
 });
 
 http.listen(process.env.PORT || PORT, function(){

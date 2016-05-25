@@ -46,7 +46,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         });
     };
 
-      $scope.currentUser = {};
+    $scope.currentUser = {};
 
     $scope.createUser = function(name) {
     	$scope.currentUser = {name: name};
@@ -61,7 +61,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
                 $scope.editorOptions.readOnly = user.hasWritePermission ? false : 'nocursor';
             }
         });
-        $scope.$apply();
         $scope.$digest();
         console.log($scope.data.users);
     });
@@ -90,6 +89,28 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 	socket.on('CodeMirror#' + $scope.collabId, function(update){
 		$scope.$apply(function(){$scope.data.textarea = update});
 	});
+
+    //HANDLE MESSAGES
+
+    $scope.messages = [];
+
+    $scope.newMessage = '';
+
+    $scope.sendMessage = function(message) {
+        // $scope.messages.unshift("'" + $scope.currentUser.name + ": " + message + "'");
+        socket.emit('new-message', {collabId: $scope.collabId, name: $scope.currentUser.name, value: message});
+        $scope.newMessage = '';
+    };
+
+    socket.on('new-message#' + $scope.collabId, function(update) {
+        $scope.$apply($scope.messages.unshift(update.name + ": " + update.value));
+        console.log($scope.messages);
+    });
+
+    socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
+        $scope.$apply($scope.messages = msgs);
+    })
+
 }]);
 
 
