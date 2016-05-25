@@ -11,6 +11,8 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 }])
 .controller('CollabCtrl', ['$rootScope', '$scope', 'ngDialog', function($rootScope, $scope, ngDialog){	
 
+    $scope.isLoaded = false;
+
     $scope.collabId = location.href.split('/')[3];
 
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
@@ -33,6 +35,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         if(!$scope.data.editor.currentMode){
             $scope.data.editor.currentMode = 'javascript';
         }
+        $scope.isLoaded = true;
     });
 
     //MODES FOR SYNTAX HIGHLIGHTING

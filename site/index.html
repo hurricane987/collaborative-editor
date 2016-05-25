@@ -12,8 +12,8 @@
 		<link rel="stylesheet" href="css/styles.css">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 	</head>
-	<body ng-cloak>
-		<div class="container" ng-controller="CollabCtrl" ng-init="dialog()">
+	<body ng-controller="CollabCtrl" ng-init="dialog()" ng-cloak>
+		<div class="container" ng-show="isLoaded">
 			<header class="main-header">
 				<h1 class="headline">COLLABORATR | peer programming</h1>
 				<select class="select" id="language-select" ng-model="data.editor.currentMode" ng-options="mode for (mode, value) in modes" ng-hide="!currentUser.hasWritePermission"></select>

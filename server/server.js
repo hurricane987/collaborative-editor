@@ -75,26 +75,28 @@ io.on('connection', function(socket){
 		var currentUsers = users[data.collabId];
 		var updatedUsers = [];
 		var hasEditor = false;
-		currentUsers.forEach(function(user){
+		if(currentUsers) {
+			currentUsers.forEach(function(user){
 			if (user.name !== data.value.name) {
 				updatedUsers.push(user);
 				if (user.hasWritePermission) {
-					hasEditor = true;
-				}
-			};
-		});
-		if (updatedUsers.length === 0) {
-			delete users[data.collabId];
-			return;
-		}
-		if (updatedUsers.length && hasEditor === false) {
-			updatedUsers[0].hasWritePermission = true;
+						hasEditor = true;
+					}
+				};
+			});
+			if (updatedUsers.length === 0) {
+				delete users[data.collabId];
+				return;
+			}
+			if (updatedUsers.length && hasEditor === false) {
+				updatedUsers[0].hasWritePermission = true;
 
+			}
+			users[data.collabId] = updatedUsers;
+			messages[data.collabId].push(data.value.name + ' has left!');
+			io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
+			io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		}
-		users[data.collabId] = updatedUsers;
-		messages[data.collabId].push(data.value.name + ' has left!');
-		io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
-		io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		console.log(updatedUsers);
 		console.log(users);
 	});
