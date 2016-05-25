@@ -34,7 +34,13 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
     $scope.currentMode = $scope.modes.JavaScript;
     console.log($scope.editorOptions.mode);
     $scope.$watch('currentMode', function(){
-        $scope.editorOptions.mode = $scope.currentMode;
+        if($scope.data.users.length > 1 && !$scope.currentUser.hasWritePermission) {
+            alert('cannot change mode without write permission!');
+            return;
+        } else {
+            $scope.editorOptions.mode = $scope.currentMode;
+            socket.emit('update-mode', {collabId: $scope.collabId, value: $scope.currentMode});   
+        }  
     });
 
 	//POMPT USER FOR USERNAME, HANDLE USER CREATION
@@ -62,7 +68,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
             }
         });
         $scope.$digest();
-        console.log($scope.data.users);
     });
 
     //SWITCHING CONTROL OF EDITOR
@@ -71,7 +76,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         if (!$scope.currentUser.hasWritePermission) {
             alert('You can\'t change the editor without permissions!');
             return;
-        };
+        }
         angular.forEach($scope.data.users, function(user){
             user.hasWritePermission = (user.name === name);
         });
@@ -87,7 +92,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 	});
 
 	socket.on('CodeMirror#' + $scope.collabId, function(update){
-		$scope.$apply(function(){$scope.data.textarea = update});
+		$scope.$apply(function(){$scope.data.textarea = update;});
 	});
 
     //HANDLE MESSAGES
@@ -104,13 +109,11 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 
     socket.on('new-message#' + $scope.collabId, function(update) {
         $scope.$apply($scope.messages.unshift(update.name + ": " + update.value));
-        console.log($scope.messages);
     });
 
     socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
         $scope.$apply($scope.messages = msgs);
-    })
-
+    });
 }]);
 
 

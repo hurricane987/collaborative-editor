@@ -15,7 +15,7 @@
 	<body ng-cloak>
 		<div class="container" ng-controller="CollabCtrl" ng-init="dialog()">
 			<header class="main-header">
-				<h1 class="headline">COLLABORATR</h1>
+				<h1 class="headline">COLLABORATR | a remote pair coding thing</h1>
 				<select class="select" id="language-select" ng-model="currentMode" ng-options="mode for (mode, value) in modes"></select>
 			</header>
 			<ui-codemirror ng-model="data.textarea" ui-codemirror-opts="editorOptions">
@@ -31,7 +31,7 @@
 	    		<h3>Collab ID:</h3>
 	    		<p class="url" ng-model="collabId">{{collabId}}</p>
 	    		<form class="message-form" ng-submit="sendMessage(newMessage)">
-	    			<input id="new-message" ng-model="newMessage" placeholder="send a message...." class="new-message"></input>
+	    			<input id="new-message" ng-model="newMessage" placeholder="send a message...." class="new-message" autocomplete="off"></input>
 	    			<input type="submit" class="message-button"></input>
 	    		</form>
 	    		<h3 class="messages-headline">Messages:</h3>

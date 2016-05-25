@@ -27,9 +27,15 @@ io.on('connection', function(socket){
 		var currentUsers = users[data.collabId];
 		data.value.hasWritePermission = (currentUsers.length === 0);
 		currentUsers.push(data.value);
+
+		//UPDATE USERS LIST ON JOIN
 		io.sockets.emit('refresh-users#' + data.collabId, currentUsers);
-		messages.unshift(data.value.name + ' is now chillin');
-		io.sockets.emit('refresh-messages#' + data.collabId, messages);
+
+		//UPDATE MESSAGES ON JOIN
+		if(currentUsers.length > 1){
+			messages.unshift(data.value.name + ' is now chillin');
+			io.sockets.emit('refresh-messages#' + data.collabId, messages);
+		}
 	});
 	
 	socket.on('update-users', function (data) {
@@ -43,14 +49,13 @@ io.on('connection', function(socket){
 	socket.on('new-message', function(data) {
 		messages.unshift(data.name + ": " + data.value);
 		io.sockets.emit('new-message#' + data.collabId, {name: data.name, value: data.value});
-		console.log(messages);
 	});
 
-	socket.on('disconnect', function(data) {
-		users[data.collabId] + ' has left';
-		io.sockets.emit('refresh-messages#' + data.collabId, messages);
-		console.log(users[data.collabId] + ' has left');
-	})
+	// socket.on('disconnect', function(socket) {
+	// 	users[data.collabId] + ' has left';
+	// 	io.sockets.emit('refresh-messages#' + data.collabId, messages);
+	// 	console.log(users[data.collabId] + ' has left');
+	// });
 });
 
 http.listen(process.env.PORT || PORT, function(){
