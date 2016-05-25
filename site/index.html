@@ -15,28 +15,29 @@
 	<body ng-cloak>
 		<div class="container" ng-controller="CollabCtrl" ng-init="dialog()">
 			<header class="main-header">
-				<h1 class="headline">COLLABORATR | a remote pair coding thing</h1>
-				<select class="select" id="language-select" ng-model="currentMode" ng-options="mode for (mode, value) in modes"></select>
+				<h1 class="headline">COLLABORATR | peer programming</h1>
+				<select class="select" id="language-select" ng-model="data.editor.currentMode" ng-options="mode for (mode, value) in modes" ng-hide="!currentUser.hasWritePermission"></select>
+				<p class="mode" ng-show="!currentUser.hasWritePermission">mode: {{data.editor.currentMode}}</p>
 			</header>
-			<ui-codemirror ng-model="data.textarea" ui-codemirror-opts="editorOptions">
+			<ui-codemirror ng-model="data.editor.textarea" ui-codemirror-opts="editorOptions">
 			</ui-codemirror>
 	    	<div class="other-info">
-	    		<h3>Collaboratrs:</h3>
+	    		<h3>collaboratrs:</h3>
 	    		<ul class=users>
 	    			<li class="user" ng-model="data.users" ng-repeat="user in data.users">{{user.name}}
 	    				<a class="make-editor" ng-show="user.name !== currentUser.name && currentUser.hasWritePermission" ng-click="changeEditor(user.name)">Make editor</a>
 	    				<span class="is-editor" ng-show="user.hasWritePermission">is editing</span>
 	    			</li>
 	    		</ul>
-	    		<h3>Collab ID:</h3>
+	    		<h3>collab ID:</h3>
 	    		<p class="url" ng-model="collabId">{{collabId}}</p>
+	    		<h3 class="messages-headline">messages:</h3>
 	    		<form class="message-form" ng-submit="sendMessage(newMessage)">
 	    			<input id="new-message" ng-model="newMessage" placeholder="send a message...." class="new-message" autocomplete="off"></input>
 	    			<input type="submit" class="message-button"></input>
 	    		</form>
-	    		<h3 class="messages-headline">Messages:</h3>
 	    		<div class="messages" id="messages">
-	    			<p ng-repeat="message in messages track by $index">{{message}}</p>
+	    			<p ng-repeat="message in data.messages track by $index">{{message}}</p>
 	    		</div>
 	    	</div>
 		</div>

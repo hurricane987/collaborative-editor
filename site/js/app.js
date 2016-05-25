@@ -15,32 +15,41 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
 
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
 
-    $scope.data = {};
+    $scope.data = {users: [], messages: [], editor: {}};
     var socket = io();
-    $scope.data.users = [];
 
     //CONFIGURE EDITOR
 
     $scope.editorOptions = {
         lineWrapping : true,
         lineNumbers: true,
-        mode: 'javascript',
+        mode: $scope.data.currentMode,
         readOnly: 'nocursor'
     };
+
+    socket.emit('init', {collabId: $scope.collabId});
+    socket.once('init#' + $scope.collabId, function(data){
+        $scope.data = data;
+        if(!$scope.data.editor.currentMode){
+            $scope.data.editor.currentMode = 'javascript';
+        }
+    });
 
     //MODES FOR SYNTAX HIGHLIGHTING
 
     $scope.modes = {'HTML': 'htmlmixed', 'CSS': 'css', 'JavaScript': 'javascript', 'PHP': 'php', 'Python': 'python', 'Ruby': 'ruby'};
-    $scope.currentMode = $scope.modes.JavaScript;
+    
     console.log($scope.editorOptions.mode);
-    $scope.$watch('currentMode', function(){
-        if($scope.data.users.length > 1 && !$scope.currentUser.hasWritePermission) {
-            alert('cannot change mode without write permission!');
-            return;
-        } else {
-            $scope.editorOptions.mode = $scope.currentMode;
-            socket.emit('update-mode', {collabId: $scope.collabId, value: $scope.currentMode});   
-        }  
+    $scope.$watch('data.editor.currentMode', function(){
+        $scope.editorOptions.mode = $scope.data.editor.currentMode;
+        if ($scope.currentUser.hasWritePermission) {
+            socket.emit('update-mode', {collabId: $scope.collabId, value: $scope.data.editor.currentMode});     
+        }
+    });
+    
+    socket.on('update-mode#' + $scope.collabId, function(update){
+        $scope.$apply($scope.data.editor.currentMode = update);
+        $scope.editorOptions.mode = $scope.data.editor.currentMode;
     });
 
 	//POMPT USER FOR USERNAME, HANDLE USER CREATION
@@ -85,19 +94,17 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
     
 	//UPDATE TEXTAREA IN REALTIME
 
-	$scope.$watch('data.textarea', function(update){
+	$scope.$watch('data.editor.textarea', function(update){
         if($scope.editorOptions.readOnly === false) {
             socket.emit('CodeMirror', {collabId: $scope.collabId, value: update});
         }
 	});
 
 	socket.on('CodeMirror#' + $scope.collabId, function(update){
-		$scope.$apply(function(){$scope.data.textarea = update;});
+		$scope.$apply(function(){$scope.data.editor.textarea = update;});
 	});
 
     //HANDLE MESSAGES
-
-    $scope.messages = [];
 
     $scope.newMessage = '';
 
@@ -108,30 +115,16 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
     };
 
     socket.on('new-message#' + $scope.collabId, function(update) {
-        $scope.$apply($scope.messages.unshift(update.name + ": " + update.value));
+        $scope.$apply($scope.data.messages.push(update.name + ": " + update.value));
     });
 
     socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
-        $scope.$apply($scope.messages = msgs);
+        $scope.$apply($scope.data.messages = msgs);
+    });
+
+    window.addEventListener('beforeunload', function(data) {
+        socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
+        console.log('!!');
     });
 }]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

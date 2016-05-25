@@ -383,20 +383,24 @@ ul {
 
 .main-header {
   height: 6em;
-  padding: 0 8%; }
+  padding: 0 12%; }
   .main-header .headline {
     display: inline-block;
     float: left; }
   .main-header .select {
-    margin-top: 1.75em;
-    margin-left: 7.5em;
+    margin-top: 2em;
+    margin-right: 7.5em;
     font-size: 1em;
     border-radius: 4px;
     background-color: #232323;
     color: #fafafa;
-    display: inline-block; }
-  .main-header .select {
-    margin-top: 1.7em; }
+    display: inline-block;
+    float: right; }
+  .main-header .mode {
+    margin-right: 7.5em;
+    display: inline-block;
+    float: right;
+    margin-top: 2em; }
 
 .make-editor,
 .is-editor {
@@ -421,6 +425,8 @@ ui-codemirror {
   height: 80%;
   float: right;
   margin-right: 2em; }
+  .other-info .message-form {
+    margin-bottom: 0.5em; }
   .other-info .messages-headline {
     display: inline-block;
     margin-right: 10px; }
