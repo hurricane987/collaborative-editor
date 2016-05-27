@@ -87,6 +87,7 @@ ui-codemirror {
 	.messages-headline {
 		display: inline-block;
 		margin-right: 10px;
+		border-top: solid 1px $charcoal;
 	}
 	.new-message {
 		display: inline-block;
@@ -97,10 +98,17 @@ ui-codemirror {
 		color: $near-white;
 	}
 	.messages {
-		height: 15em;
-		overflow: auto;
-		border-top: solid 1px $charcoal;
-	}	
+		height: 13.85em;
+		overflow-y: scroll;
+		word-wrap: break-word;	
+	}
+	.message.ng-enter {
+		transition: all 0.25s linear;
+		opacity: 0;
+	}
+	.message.ng-enter.ng-enter-active {
+		opacity: 1;
+	}
 }
 
 .ng-dialog {

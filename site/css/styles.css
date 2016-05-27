@@ -429,7 +429,8 @@ ui-codemirror {
     margin-bottom: 0.5em; }
   .other-info .messages-headline {
     display: inline-block;
-    margin-right: 10px; }
+    margin-right: 10px;
+    border-top: solid 1px #232323; }
   .other-info .new-message {
     display: inline-block;
     margin-right: 10px; }
@@ -437,9 +438,14 @@ ui-codemirror {
     background-color: #232323;
     color: #fafafa; }
   .other-info .messages {
-    height: 15em;
-    overflow: auto;
-    border-top: solid 1px #232323; }
+    height: 13.85em;
+    overflow-y: scroll;
+    word-wrap: break-word; }
+  .other-info .message.ng-enter {
+    transition: all 0.25s linear;
+    opacity: 0; }
+  .other-info .message.ng-enter.ng-enter-active {
+    opacity: 1; }
 
 .ng-dialog {
   position: absolute;

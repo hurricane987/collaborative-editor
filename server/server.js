@@ -86,6 +86,7 @@ io.on('connection', function(socket){
 			});
 			if (updatedUsers.length === 0) {
 				delete users[data.collabId];
+				delete messages[data.collabId];
 				return;
 			}
 			if (updatedUsers.length && hasEditor === false) {
@@ -97,8 +98,6 @@ io.on('connection', function(socket){
 			io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
 			io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		}
-		console.log(updatedUsers);
-		console.log(users);
 	});
 });
 

@@ -32,13 +32,13 @@
 	    		<h3>collab ID:</h3>
 	    		<p class="url" ng-model="collabId">{{collabId}}</p>
 	    		<h3 class="messages-headline">messages:</h3>
+	    		<div class="messages" id="message-div">
+	    			<p class="message" ng-repeat="message in data.messages track by $index">{{message}}</p>
+	    		</div>
 	    		<form class="message-form" ng-submit="sendMessage(newMessage)">
 	    			<input id="new-message" ng-model="newMessage" placeholder="send a message...." class="new-message" autocomplete="off"></input>
 	    			<input type="submit" class="message-button"></input>
 	    		</form>
-	    		<div class="messages" id="messages">
-	    			<p ng-repeat="message in data.messages track by $index">{{message}}</p>
-	    		</div>
 	    	</div>
 		</div>
 		<script src="/socket.io/socket.io.js"></script>

@@ -1,4 +1,4 @@
-angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
+angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 .config(['ngDialogProvider', function (ngDialogProvider) {
     ngDialogProvider.setDefaults({
         className: 'ngdialog-theme-default',
@@ -112,7 +112,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
     $scope.newMessage = '';
 
     $scope.sendMessage = function(message) {
-        // $scope.messages.unshift("'" + $scope.currentUser.name + ": " + message + "'");
         socket.emit('new-message', {collabId: $scope.collabId, name: $scope.currentUser.name, value: message});
         $scope.newMessage = '';
     };
@@ -129,5 +128,10 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog'])
         socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
         console.log('!!');
     });
+    //MESSAGES GO FROM BOTTOM TO TOP
+    window.setInterval(function() {
+        var msgDiv = document.getElementById("message-div");
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+    }, 250);
 }]);
 
