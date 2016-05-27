@@ -3,6 +3,8 @@
     <p>
       To get started, just enter your username!
     </p>
-    <input class="username" type="text" ng-model="name" placeholder="name">
-    <button class="addUser" ng-click="createUser(name); confirm()">Submit</button>
+    <form ng-submit="createUser(name); confirm()">
+	    <input class="username" type="text" ng-model="name" placeholder="name" required>
+	    <button class="addUser">Submit</button>
+    </form>
 </div>

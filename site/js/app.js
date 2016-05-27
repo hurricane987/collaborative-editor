@@ -93,6 +93,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
             user.hasWritePermission = (user.name === name);
         });
         socket.emit('update-users', {collabId: $scope.collabId, value: $scope.data.users});
+        socket.emit('new-message', {collabId: $scope.collabId, value: name + ' is now the editor'});
     };
     
 	//UPDATE TEXTAREA IN REALTIME
@@ -117,7 +118,11 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
     };
 
     socket.on('new-message#' + $scope.collabId, function(update) {
-        $scope.$apply($scope.data.messages.push(update.name + ": " + update.value));
+        var message = update.value;
+        if(update.name) {
+            message = update.name + ': ' + message;
+        }
+        $scope.$apply($scope.data.messages.push(message));
     });
 
     socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
@@ -128,7 +133,9 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
         socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
         console.log('!!');
     });
+
     //MESSAGES GO FROM BOTTOM TO TOP
+    
     window.setInterval(function() {
         var msgDiv = document.getElementById("message-div");
         msgDiv.scrollTop = msgDiv.scrollHeight;

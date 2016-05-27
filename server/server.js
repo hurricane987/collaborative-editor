@@ -57,9 +57,11 @@ io.on('connection', function(socket){
 			console.log('Something is very wrong...');
 		}
 		users[data.collabId] = data.value;
+		me
 		io.sockets.emit('refresh-users#' + data.collabId, data.value);
 	});
 
+	//HANLDLES NEW MESSAGES
 	socket.on('new-message', function(data) {
 		messages[data.collabId].push(data.name + ": " + data.value);
 		io.sockets.emit('new-message#' + data.collabId, {name: data.name, value: data.value});
@@ -68,7 +70,9 @@ io.on('connection', function(socket){
 	//UPDATE MODE
 	socket.on('update-mode', function(data){
 		collabs[data.collabId].currentMode = data.value;
+		messages[data.collabId].push('stynax mode: ' + data.value);
 		io.sockets.emit('update-mode#' + data.collabId, data.value);
+		io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
 	});
 
 	socket.on('user-leave', function(data) {
