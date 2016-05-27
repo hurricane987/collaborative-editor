@@ -15,7 +15,7 @@
 	<body ng-controller="CollabCtrl" ng-init="dialog()" ng-cloak>
 		<div class="container" ng-show="isLoaded">
 			<header class="main-header">
-				<h1 class="headline">COLLABORATR | peer programming</h1>
+				<h1 class="headline">COLLABORATR | <span title="derp">peer programming</span></h1>
 				<select class="select" id="language-select" ng-model="data.editor.currentMode" ng-options="mode for (mode, value) in modes" ng-hide="!currentUser.hasWritePermission"></select>
 				<p class="mode" ng-show="!currentUser.hasWritePermission">mode: {{data.editor.currentMode}}</p>
 			</header>
