@@ -42,7 +42,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 
     $scope.modes = {'HTML': 'htmlmixed', 'CSS': 'css', 'JavaScript': 'javascript', 'PHP': 'php', 'Python': 'python', 'Ruby': 'ruby'};
     
-    console.log($scope.editorOptions.mode);
     $scope.$watch('data.editor.currentMode', function(){
         $scope.editorOptions.mode = $scope.data.editor.currentMode;
         if ($scope.currentUser.hasWritePermission) {
@@ -91,8 +90,10 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
         }
         angular.forEach($scope.data.users, function(user){
             user.hasWritePermission = (user.name === name);
+            console.log(user);
         });
         socket.emit('update-users', {collabId: $scope.collabId, value: $scope.data.users});
+
         socket.emit('new-message', {collabId: $scope.collabId, value: name + ' is now the editor'});
     };
     

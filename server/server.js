@@ -57,7 +57,6 @@ io.on('connection', function(socket){
 			console.log('Something is very wrong...');
 		}
 		users[data.collabId] = data.value;
-		me
 		io.sockets.emit('refresh-users#' + data.collabId, data.value);
 	});
 
