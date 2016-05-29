@@ -90,6 +90,7 @@ io.on('connection', function(socket){
 			if (updatedUsers.length === 0) {
 				delete users[data.collabId];
 				delete messages[data.collabId];
+				delete collabs[data.collabId];
 				return;
 			}
 			if (updatedUsers.length && hasEditor === false) {

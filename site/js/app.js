@@ -15,6 +15,13 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 
     $scope.collabId = location.href.split('/')[3];
 
+    //EVENT LISTENER FOR USER LEAVING
+
+    window.addEventListener('beforeunload', function(data) {
+        socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
+        console.log('!!');
+    });
+
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
 
     $scope.data = {users: [], messages: [], editor: {}};
@@ -128,11 +135,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 
     socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
         $scope.$apply($scope.data.messages = msgs);
-    });
-
-    window.addEventListener('beforeunload', function(data) {
-        socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
-        console.log('!!');
     });
 
     //MESSAGES GO FROM BOTTOM TO TOP
