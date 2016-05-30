@@ -86,6 +86,7 @@ io.on('connection', function(socket){
 		var currentUsers = users[data.collabId];
 		var updatedUsers = [];
 		var hasEditor = false;
+		messages[data.collabId].push(data.value.name + ' has left!');
 		if(currentUsers) {
 			currentUsers.forEach(function(user){
 			if (user.name !== data.value.name) {
@@ -103,10 +104,9 @@ io.on('connection', function(socket){
 			}
 			if (updatedUsers.length && hasEditor === false) {
 				updatedUsers[0].hasWritePermission = true;
-
+				messages[data.collabId].push(updatedUsers[0].name + ' is now the editor');
 			}
 			users[data.collabId] = updatedUsers;
-			messages[data.collabId].push(data.value.name + ' has left!');
 			io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
 			io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		}
