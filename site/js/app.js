@@ -15,7 +15,12 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 
     $scope.collabId = location.href.split('/')[3];
 
-    //EVENT LISTENER FOR USER LEAVING
+    //MESSAGES GO FROM BOTTOM TO TOP
+    
+    function scrollToBottom(){
+        var msgDiv = document.getElementById("message-div");
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+    };
 
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
 
@@ -126,17 +131,13 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
             message = update.name + ': ' + message;
         }
         $scope.$apply($scope.data.messages.push(message));
+        scrollToBottom();
     });
 
     socket.on('refresh-messages#' + $scope.collabId, function(msgs) {
         $scope.$apply($scope.data.messages = msgs);
+        scrollToBottom();
     });
-
-    //MESSAGES GO FROM BOTTOM TO TOP
-    
-    window.setInterval(function() {
-        var msgDiv = document.getElementById("message-div");
-        msgDiv.scrollTop = msgDiv.scrollHeight;
-    }, 250);
+      
 }]);
 

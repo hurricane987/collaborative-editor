@@ -30,6 +30,7 @@ io.on('connection', function(socket){
 												 messages: messages[data.collabId],
 												 editor: collabs[data.collabId]});
 	});
+
 	//UPDATE CODEMIRROR IN REALTIME
 	socket.on('CodeMirror', function(data){
 		collabs[data.collabId].textarea = data.value;
@@ -110,6 +111,10 @@ io.on('connection', function(socket){
 			io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		}
 	});
+
+	socket.on('disconnect', function(){
+		io.sockets.emit('ping#' + collabs[collabId]);
+	})
 });
 
 http.listen(process.env.PORT || PORT, function(){
