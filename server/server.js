@@ -40,6 +40,7 @@ io.on('connection', function(socket){
 		var currentUsers = users[data.collabId];
 		data.value.hasWritePermission = (currentUsers.length === 0);
 		currentUsers.push(data.value);
+		socket.collabUser = data;
 
 		//UPDATE USERS LIST ON JOIN
 		io.sockets.emit('refresh-users#' + data.collabId, currentUsers);
@@ -74,7 +75,13 @@ io.on('connection', function(socket){
 		io.sockets.emit('refresh-messages#' + data.collabId, messages[data.collabId]);
 	});
 
-	socket.on('user-leave', function(data) {
+	socket.on('disconnect', function() {
+		var data = socket.collabUser;
+		
+		// If user was never set, exit
+		if (!data) {
+			return;
+		}
 		var currentUsers = users[data.collabId];
 		var updatedUsers = [];
 		var hasEditor = false;

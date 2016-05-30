@@ -17,11 +17,6 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
 
     //EVENT LISTENER FOR USER LEAVING
 
-    window.addEventListener('beforeunload', function(data) {
-        socket.emit('user-leave', {collabId: $scope.collabId, value: $scope.currentUser});
-        console.log('!!');
-    });
-
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
 
     $scope.data = {users: [], messages: [], editor: {}};
