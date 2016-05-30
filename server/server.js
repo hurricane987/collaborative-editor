@@ -111,10 +111,6 @@ io.on('connection', function(socket){
 			io.sockets.emit('refresh-users#' + data.collabId, updatedUsers);
 		}
 	});
-
-	socket.on('disconnect', function(){
-		io.sockets.emit('ping#' + collabs[collabId]);
-	})
 });
 
 http.listen(process.env.PORT || PORT, function(){
