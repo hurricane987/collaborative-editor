@@ -20,7 +20,7 @@ angular.module('Collaboratr', ['ui.codemirror', 'ngDialog', 'ngAnimate'])
     function scrollToBottom(){
         var msgDiv = document.getElementById("message-div");
         msgDiv.scrollTop = msgDiv.scrollHeight;
-    };
+    }
 
     //INITIALIZE SCOPE.DATA, CREATE USER ARRAY
 

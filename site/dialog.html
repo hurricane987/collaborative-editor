@@ -1,9 +1,9 @@
 <div class="dialog-contents">
     <h1>Welcome to Collaboratr!</h1>
     <p>
-      To get started, just enter your username!
+      This is a collaborative code editor that allows you and a friend to take turns editing the same piece of code. Just enter a username here, copy the URL in the address bar, send it to a friend or multiple friends, and you're ready to go!
     </p>
-    <form ng-submit="createUser(name); confirm()">
+    <form class="intro" ng-submit="createUser(name); confirm()">
 	    <input class="username" type="text" ng-model="name" placeholder="name" required>
 	    <button class="addUser">Submit</button>
     </form>
